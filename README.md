@@ -6,7 +6,7 @@ It is intended to run "all the time", so it can emit json files as songs play. T
 On my system, I created the .plist file at the end of this document. The follow commands will get this running:
 
     cd ~/Library/LaunchAgents
-    ln -s ~/Documents/code/git/bin_utils/com.bolsinga.itunes_notifier.plist
+    ln -s ~/<path-to>/com.bolsinga.itunes_notifier.plist
     launchctl load com.bolsinga.itunes_notifier.plist
     
 To verify it is running:
