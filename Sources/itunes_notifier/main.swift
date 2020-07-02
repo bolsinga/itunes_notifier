@@ -45,8 +45,13 @@ DistributedNotificationCenter.default().addObserver(forName: NSNotification.Name
     }).filter { (key, _) in key != "Player State" && key != "Back Button State" }
 
     guard JSONSerialization.isValidJSONObject(info) else {
-        print("Unabled to create JSON for \(notification)")
+        print("Unable to create JSON for \(notification)")
         return
+    }
+
+    guard info.keys.count > 0 else {
+        print("No JSON to record")
+        return;
     }
 
     do {
