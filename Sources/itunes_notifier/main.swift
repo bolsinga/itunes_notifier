@@ -1,4 +1,5 @@
 import Foundation
+import Logging
 
 if CommandLine.arguments.count < 2 {
     print("Must provide a destination directory")
@@ -7,6 +8,10 @@ if CommandLine.arguments.count < 2 {
 
 let destinationDirectoryPath = CommandLine.arguments[1]
 let destinationDirectoryURL = URL(fileURLWithPath: destinationDirectoryPath, isDirectory: true)
+
+LoggingSystem.bootstrap(StreamLogHandler.standardError)
+var logger = Logger(label: "com.bolsinga.itunes_notifier")
+logger.logLevel = .debug
 
 func save(jsonData : Data) throws {
     let fm = FileManager.default;
@@ -28,12 +33,12 @@ func save(jsonData : Data) throws {
 
 DistributedNotificationCenter.default().addObserver(forName: NSNotification.Name("com.apple.iTunes.playerInfo"), object: nil, queue: nil) { (notification) in
     guard notification.object as? String == "com.apple.iTunes.player" else {
-        print("Unknown Notification.object : \(notification)")
+        logger.debug("Unknown Notification.object : \(notification)")
         return
     }
 
     guard let t = notification.userInfo else {
-        print("Empty Notification.userInfo : \(notification)")
+        logger.debug("Empty Notification.userInfo : \(notification)")
         return
     }
 
@@ -45,19 +50,19 @@ DistributedNotificationCenter.default().addObserver(forName: NSNotification.Name
     }).filter { (key, _) in key != "Player State" && key != "Back Button State" }
 
     guard JSONSerialization.isValidJSONObject(info) else {
-        print("Unable to create JSON for \(notification)")
+        logger.debug("Unable to create JSON for \(notification)")
         return
     }
 
     guard info.keys.count > 0 else {
-        print("No JSON to record")
+        logger.info("No JSON to record")
         return;
     }
 
     do {
         try save(jsonData: JSONSerialization.data(withJSONObject: info, options: [.prettyPrinted, .sortedKeys]))
     } catch {
-        print("Error Creating JSON: \(error) for: \(notification)")
+        logger.debug("Error Creating JSON: \(error) for: \(notification)")
     }
 }
 
