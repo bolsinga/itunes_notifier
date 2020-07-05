@@ -1,7 +1,7 @@
 # itunes_notifier
-This program listens to iTunes notifications and emits JSON formatted data of what is produced.
+This program listens to iTunes notifications and emits JSON formatted data of what is produced. It is intended to run "all the time", so it can emit json files as songs play. 
 
-It is intended to run "all the time", so it can emit json files as songs play. This was done because it seems like a good way forward in Catalina. iTunes isn't in Catalina, nor does it support the iTunes Music.xml file read by https://github.com/bolsinga/web_generator. This program is as agnostic as possible about the keys that iTunes emits. I filter out UI related keys, since they caused the json to be different depending upon if the user started or stopped iTunes from playing.
+This was done because it seems like a good way forward in Catalina. iTunes isn't in Catalina, nor does it support the iTunes Music.xml file read by https://github.com/bolsinga/web_generator. This program is as agnostic as possible about the keys that iTunes emits. I filter out UI related keys, since they caused the json to be different depending upon if the user started or stopped iTunes from playing.
 
 On my system, I created the .plist file at the end of this document. The follow commands will get this running:
 
