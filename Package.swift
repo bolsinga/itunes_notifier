@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "itunes_notifier",
     platforms: [
-        .macOS(.v10_14),
+        .macOS(.v10_15),
     ],
     dependencies: [
 //        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.1.0"),
