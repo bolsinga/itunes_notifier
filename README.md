@@ -3,7 +3,7 @@ This program listens to iTunes notifications and emits JSON formatted data of wh
 
 This was done because it seems like a good way forward in Catalina. iTunes isn't in Catalina, nor does it support the iTunes Music Library.xml file read by [web generator](https://github.com/bolsinga/web_generator). This program is as agnostic as possible about the keys that iTunes emits. I filter out UI related keys, since they caused the json to be different depending upon if the user started or stopped iTunes from playing.
 
-On my system, I created the .plist file at the end of this document. The follow commands will get this running:
+On my system, I created the .plist file at the end of this document. The following commands will get this running:
 
     cd ~/Library/LaunchAgents
     ln -s ~/<path-to>/com.bolsinga.itunes_notifier.plist
